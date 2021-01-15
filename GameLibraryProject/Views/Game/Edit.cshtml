@@ -1,0 +1,57 @@
+﻿@model GameLibraryProject.Models.Game
+@{
+    ViewBag.Title = "Update";
+}
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm(actionName: "Edit", controllerName: "Game"))
+{
+    @Html.HttpMethodOverride(HttpVerbs.Put)
+
+    @Html.HiddenFor(b => b.GameId)
+    <br />
+    @Html.Label("Title", "Game Title:")
+    <br />
+    @Html.EditorFor(b => b.Title, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(b => b.Title, "", new { @class = "text-danger" })
+    <br />
+    @Html.Label("Producer", "Producer:")
+    <br />
+    @Html.Editor("Producer", new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(b => b.Producer, "", new { @class = "text-danger" })
+    <br />
+    @Html.Label("Summary", "Summary:")
+    <br />
+    @Html.TextAreaFor(b => b.Summary, new { @class = "form-control", @rows = "10" })
+    @Html.ValidationMessageFor(b => b.Summary, "", new { @class = "text-danger" })
+    <br />
+    @Html.LabelFor(b => b.Price, "Price:")
+    <br />
+    @Html.EditorFor(b => b.Price, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(b => b.Price, "", new { @class = "text-danger" })
+    <br />
+    @Html.Label("Publisher", "Publisher:")
+    <br />
+    @Html.DropDownListFor(b => b.PublisherId, new SelectList(Model.PublishersList, "Value", "Text"), "Choose a publisher", new { @class = "form-control" })
+    @Html.ValidationMessageFor(b => b.PublisherId, "", new { @class = "text-danger" })
+    <br />
+    @Html.Label("GameType", "GameType:")
+    <br />
+    @Html.DropDownListFor(b => b.GameTypeId, new SelectList(Model.GameTypesList, "Value", "Text"),
+    "Choose a game type", new { @class = "form-control" })
+
+    @Html.ValidationMessageFor(b => b.GameTypeId, "", new { @class = "text-danger" })
+    <br />
+
+    @Html.LabelFor(b => b.GenresList, "Choose genres:")
+    <br />
+    for (int i = 0; i < Model.GenresList.Count(); i++)
+    {
+        @Html.HiddenFor(b => b.GenresList[i].Id)
+        @Html.HiddenFor(b => b.GenresList[i].Name)
+        @Html.CheckBoxFor(b => b.GenresList[i].Checked)
+        @Html.DisplayFor(b => b.GenresList[i].Name)
+        <br />
+    }
+    <br />
+    <button class="btn btn-primary" type="submit">Update</button>
+}

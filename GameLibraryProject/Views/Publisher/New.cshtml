@@ -1,0 +1,19 @@
+﻿@model GameLibraryProject.Models.Publisher
+@{
+    ViewBag.Title = "New Publisher";
+}
+
+<h2 class="text-center mt-3 mb-3">@ViewBag.Title</h2>
+
+@using (Html.BeginForm(actionName: "New", controllerName: "Publisher", method: FormMethod.Post))
+{
+    <p class="font-weight-bold">@Html.Label("Name", "Name:")</p>
+    @Html.TextBoxFor(p => p.Name, null, new { placeholder = "Type in the publisher's name", @class = "form-control" })
+    @Html.ValidationMessageFor(p => p.Name, "", new { @class = "text-danger" })
+
+    <br />
+    @Html.DropDownListFor(p => p.StoreId, new SelectList(Model.StoreNamesList, "Value", "Text"), "Choose a store", new { @class = "form-control" })
+    @Html.ValidationMessageFor(p => p.StoreId, "", new { @class = "text-danger" })
+    <br />
+    <button class="btn btn-outline-primary">Create</button>
+}

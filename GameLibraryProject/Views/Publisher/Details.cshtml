@@ -1,0 +1,30 @@
+﻿@model GameLibraryProject.Models.Publisher
+
+<h2 class="text-center mt-3 mb-3">@Model.Name</h2>
+<table class="table-dark table">
+    <tbody>
+        <tr>
+            <td>@Html.LabelFor(p => p.Store.Name, "Store name", new { style = "margin-right:10px" })</td>
+            <td>@Html.DisplayFor(p => p.Store.Name)</td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(p => p.Store.Manager.PhoneNumber, "Phone number: ", new { style = "margin-right:10px" })</td>
+            <td>@Html.DisplayFor(p => p.Store.Manager.PhoneNumber)</td>
+        </tr>
+        </tr>
+
+    </tbody>
+</table>
+
+<br />
+<br />
+@if (ViewContext.HttpContext.User.IsInRole("Admin")) 
+{ 
+
+    using (Html.BeginForm(actionName: "Delete", controllerName: "Publisher", method: FormMethod.Post, routeValues: new { id = Model.PublisherId }))
+{
+    @Html.HttpMethodOverride(HttpVerbs.Delete)
+    <button class="btn btn-outline-primary" type="submit">Delete</button>
+    }
+}

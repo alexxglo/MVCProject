@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Stores";
+}
+<h2 class="text-center mb-5 mt-5">@ViewBag.Title</h2>
+<table class="table table-dark">
+    <thead>
+    <th>Name</th>
+    <th>Manager Name</th>
+    <th>Phone number</th>
+    @if (ViewContext.HttpContext.User.IsInRole("Admin")) {
+        <th>Actions</th>
+    }
+    </thead>
+    <tbody>
+        @foreach (var store in ViewBag.Stores)
+        {
+        <tr>
+            <td>@store.Name</td>
+            <td>@store.Manager.NameM</td>
+            <td>@store.Manager.PhoneNumber</td>
+            @if (ViewContext.HttpContext.User.IsInRole("Admin")) {
+                <td>
+                    @using (Html.BeginForm(actionName: "Edit", controllerName: "Store", method:
+                   FormMethod.Get,
+                    routeValues: new { id = store.StoreId }))
+                    {
+                        <button type="submit" class="btn btn-link mr-4">Update</button>
+                    }
+                    @using (Html.BeginForm(actionName: "Delete", controllerName: "Store", method:
+                   FormMethod.Post,
+                    routeValues: new { id = store.StoreId }))
+                    {
+                        @Html.HttpMethodOverride(HttpVerbs.Delete)
+                        <button type="submit" class="btn btn-link mr-4">Remove</button>
+                    }
+                </td> }
+        </tr>
+        }
+    </tbody>
+</table>
+<br />
+@if (ViewContext.HttpContext.User.IsInRole("Admin")) { 
+    <button class="btn btn-outline-dark  mt-3">@Html.ActionLink("Add store", "New")</button>
+    }

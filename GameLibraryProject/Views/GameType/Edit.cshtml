@@ -1,0 +1,17 @@
+﻿@model GameLibraryProject.Models.GameType
+@{
+    ViewBag.Title = "Update game type";
+}
+<h2 class="text-center mt-3 mb-3">@ViewBag.Title</h2>
+
+@using (Html.BeginForm(actionName: "Edit", controllerName: "GameType", method: FormMethod.Post))
+{
+    @Html.HttpMethodOverride(HttpVerbs.Put)
+    @Html.HiddenFor(b => b.GameTypeId)
+
+    <p class="font-weight-bold">@Html.LabelFor(bt => bt.Name, "Name:")</p>
+    @Html.EditorFor(bt => bt.Name, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(bt => bt.Name, "", new { @class = "text-danger" })
+    <br />
+    <button class="btn btn-outline-primary" type="submit">Update</button>
+}

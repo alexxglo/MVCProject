@@ -1,0 +1,35 @@
+﻿@model GameLibraryProject.Models.StoreManagerViewModel
+
+@{
+    ViewBag.Title = "Create a store";
+}
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm(actionName: "New", controllerName: "Store", method: FormMethod.Post))
+{
+    @Html.LabelFor(bt => bt.Name, "Store name:")
+    <br />
+    @Html.TextBoxFor(bt => bt.Name, null, new { placeholder = "Type in the store's name", @class = "form-control" })
+    @Html.ValidationMessageFor(bt => bt.Name, "", new { @class = "text-danger" })
+    <br />
+    @Html.LabelFor(bt => bt.Surname, "Manager surname:")
+    <br />
+    @Html.TextBoxFor(bt => bt.Surname, null, new { placeholder = "Type in the manager's surname", @class = "form-control" })
+    @Html.ValidationMessageFor(bt => bt.Surname, "", new { @class = "text-danger" })
+    <br />
+    @Html.LabelFor(bt => bt.NameM, "Manager name:")
+    <br />
+    @Html.TextBoxFor(bt => bt.NameM, null, new { placeholder = "Type in the manager's name", @class = "form-control" })
+    @Html.ValidationMessageFor(bt => bt.NameM, "", new { @class = "text-danger" })
+    <br />
+    @Html.LabelFor(bt => bt.PhoneNumber, "Manager phone number:")
+    <br />
+    @Html.TextBoxFor(bt => bt.PhoneNumber, null, new { placeholder = "Type in the manager's phone number", @class = "form-control" })
+    @Html.ValidationMessageFor(bt => bt.PhoneNumber, "", new { @class = "text-danger" })
+    <br />
+
+    if (ViewContext.HttpContext.User.IsInRole("Admin"))
+    {
+<button class="btn btn-outline-primary">Create</button>
+    }
+}

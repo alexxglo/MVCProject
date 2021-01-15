@@ -1,0 +1,23 @@
+﻿@model GameLibraryProject.Models.Publisher
+@{
+    ViewBag.Title = "Update";
+}
+
+<h2 class="text-center mt-5 mb-2">@ViewBag.Title</h2>
+
+@using (Html.BeginForm(actionName: "Edit", controllerName: "Publisher"))
+{
+    @Html.HttpMethodOverride(HttpVerbs.Put)
+
+    @Html.HiddenFor(p => p.PublisherId)
+    <br />
+    <h1 class="font-weight-bold">@Model.Name</h1>
+    <br />
+    <h4 class="font-weight-bold mt-3">@Html.LabelFor(bt => bt.StoreId, "Store:")</h4>
+    @Html.DropDownListFor(p => p.StoreId, new SelectList(Model.StoreNamesList, "Value", "Text"), "Choose a store", new { @class = "form-control" })
+    @Html.ValidationMessageFor(p => p.StoreId, "", new { @class = "text-danger" })
+    <br />
+
+
+    <button class="btn btn-outline-primary  mt-3">Update</button>
+}

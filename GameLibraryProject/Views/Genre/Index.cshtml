@@ -1,0 +1,45 @@
+﻿@{
+
+    ViewBag.Title = "Genre Types";
+}
+
+<h2 class="text-center mt-5 mb-5">@ViewBag.Title</h2>
+<table class="table table-dark">
+    <thead>
+    <th>Genre</th>
+    @if (ViewContext.HttpContext.User.IsInRole("Admin"))
+    {
+        <th>Actions</th>
+    }
+    </thead>
+    <tbody>
+        @foreach (var genre in ViewBag.Genres)
+        {
+            <tr>
+                <td>@genre.Name</td>
+                @if (ViewContext.HttpContext.User.IsInRole("Admin"))
+                {
+                    <td>
+                        @using (Html.BeginForm(actionName: "Edit", controllerName: "Genre", method:
+                   FormMethod.Get,
+                    routeValues: new { id = genre.GenreId }))
+                        {
+                            <button type="submit" class="btn btn-link">Edit</button>
+                        }
+                        @using (Html.BeginForm(actionName: "Delete", controllerName: "Genre", method:
+                   FormMethod.Post,
+                    routeValues: new { id = genre.GenreId }))
+                        {
+                            @Html.HttpMethodOverride(HttpVerbs.Delete)
+                            <button type="submit" class="btn btn-link">Remove</button>
+                        }
+                    </td>
+}
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+@if (ViewContext.HttpContext.User.IsInRole("Admin"))
+{
+    <button class="btn btn-outline-dark  mt-3">@Html.ActionLink("Add genre", "New")</button>}

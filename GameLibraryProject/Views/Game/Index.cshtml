@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "Games Library";
+}
+
+@if (ViewContext.HttpContext.User.IsInRole("Admin"))
+{
+    <h5 class="font-weight-light mt-3">Hello, mr. admin!</h5>
+}
+
+@if (ViewContext.HttpContext.User.IsInRole("User"))
+{
+    <h5 class="font-weight-light mt-3">Hello, dear user!</h5>
+}
+
+
+<h2 class="text-center mt-2 mb-2">@ViewBag.Title</h2>
+
+
+<table class="table table-dark">
+    <tbody>
+        <br />
+        <br />
+        @foreach (var game in ViewBag.Games)
+        {
+            <tr>
+                <td>
+                    <p class="font-weight-bold">
+                        @Html.Label("Title", "Title:")
+
+                    </p>
+                    <p class="font-weight-bold">@Html.Label("Price", "Price: ")</p>
+                    <p class="font-weight-bold">@Html.Label("Producer", "Producer:")</p>
+                    <br />
+
+                    @using (Html.BeginForm(actionName: "Details", controllerName: "Game", method: FormMethod.Get,
+                    routeValues: new { id = game.GameId }))
+                    {
+                        <button style="margin-right:5px" class="btn btn-outline-light"
+                                type="submit">
+                            Summary
+                        </button>
+                    }
+                </td>
+
+                <td>
+                    <p class="float-center">@game.Title</p>
+                    <p class="float-center">
+                        @game.Price
+                    </p>
+                    <p class="font-italic">@game.Producer</p>
+                </td>
+
+                   
+
+                    
+                 
+                
+            </tr>
+        }
+    </tbody>
+</table>
+@if (ViewContext.HttpContext.User.IsInRole("Admin"))
+{
+    <button class="btn btn-outline-dark mr-auto ">@Html.ActionLink("Add game", "New")</button>
+}
+
+@if (ViewContext.HttpContext.User.IsInRole("User"))
+{
+    <button class="btn btn-outline-dark mr-auto">@Html.ActionLink("Add game", "New")</button>
+}

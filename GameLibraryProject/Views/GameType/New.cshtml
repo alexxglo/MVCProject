@@ -1,0 +1,19 @@
+﻿@model GameLibraryProject.Models.GameType
+@{
+    ViewBag.Title = "Create a game type";
+}
+<h2 class="text-center mt-3 mb-3">@ViewBag.Title</h2>
+
+@using (Html.BeginForm(actionName: "New", controllerName: "GameType", method: FormMethod.Post))
+{
+    <p class="font-weight-bold">@Html.LabelFor(bt => bt.Name, "Name:")</p>
+    @Html.TextBoxFor(bt => bt.Name, null, new
+    {
+        placeholder = "Type in the game type's name",
+        @class =
+   "form-control"
+    })
+    @Html.ValidationMessageFor(bt => bt.Name, "", new { @class = "text-danger" })
+    <br />
+    <button class="btn btn-outline-primary" type="submit">Create</button>
+}

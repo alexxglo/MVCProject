@@ -1,0 +1,30 @@
+﻿@model GameLibraryProject.Models.StoreManagerViewModel
+@{
+    ViewBag.Title = "Update store";
+}
+<h2 class="text-center mb-3 mt-5">@ViewBag.Title</h2>
+
+@using (Html.BeginForm(actionName: "Edit", controllerName: "Store", method: FormMethod.Post))
+{
+    @Html.HttpMethodOverride(HttpVerbs.Put)
+        @Html.HiddenFor(bt => bt.StoreId)
+
+    <p class="font-weight-bold">@Html.LabelFor(bt => bt.Name, "Name:")</p>
+    @Html.EditorFor(bt => bt.Name, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(bt => bt.Name, "", new { @class = "text-danger" })
+
+    <p class="font-weight-bold mt-3">@Html.LabelFor(bt => bt.NameM, "Manager name:")</p>
+    @Html.EditorFor(bt => bt.NameM, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(bt => bt.NameM, "", new { @class = "text-danger" })
+    <br />
+    <p class="font-weight-bold mt-3">@Html.LabelFor(bt => bt.Surname, "Manager surname:")</p>
+    @Html.EditorFor(bt => bt.Surname, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(bt => bt.Surname, "", new { @class = "text-danger" })
+    <br />
+
+    <p class="font-weight-bold mt-3">@Html.LabelFor(bt => bt.PhoneNumber, "Manager phone number:")</p>
+    @Html.EditorFor(bt => bt.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(bt => bt.PhoneNumber, "", new { @class = "text-danger" })
+    <br />
+    <button class="btn btn-outline-primary">Update</button>
+}

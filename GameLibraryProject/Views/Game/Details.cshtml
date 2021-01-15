@@ -1,0 +1,77 @@
+﻿@model GameLibraryProject.Models.Game
+<div class="card text-center">
+    <div class="card-header">
+
+        <h2>Game Details</h2>
+    </div>
+    <div class="card-body">
+        <h2 class="card-title">@ViewBag.Title</h2>
+        @Html.Label("Title", "Title:")
+        <br />
+        <p class="card-text font-weight-bold">@Model.Title</p>
+        @Html.Label("Producer", "Producer:")
+        <br />
+        <p class="font-weight-bold">@Model.Producer</p>
+        @if (Model.Publisher != null)
+        {
+            @Html.Label("Publisher", "Publisher:")
+            <br />
+            <p class="font-weight-bold">@Model.Publisher.Name</p>
+
+        }
+        @Html.Label("Summary", "Summary:")
+        <br />
+        <div class="panel-body">
+            @if (Model.Summary.IsEmpty())
+            {
+
+                @*Html.Display nu o sa afiseze nimic in acest caz*@
+                @Html.Display("This game has no summary")
+            }
+            else
+            {<p class="font-italic">
+                    @*@Html.Display("Summary")*@
+                    @Html.DisplayFor(b => b.Summary)
+                </p>}
+        </div>
+        <div>
+            @if (Model.Genres.Count > 0)
+            {
+                @Html.Label("Genres", "Genres:")
+                <div>
+                    @foreach (var genre in Model.Genres)
+                    {
+                        <p class="font-weight-bold">@genre.Name</p>
+                    }
+                </div>
+            }
+            else
+            {
+                @Html.Display("This game has no mentioned genres")
+            }
+        </div>
+        @if (Model.GameType != null)
+        {
+            @Html.Label("GameType", "Game Type:")
+            <br />
+            <p class="font-weight-bold">@Html.DisplayFor(b => b.GameType.Name)</p>
+
+        }
+
+    </div>
+    @if (ViewContext.HttpContext.User.IsInRole("Admin") ||ViewContext.HttpContext.User.IsInRole("User"))
+    {
+        using (Html.BeginForm(actionName: "Edit", controllerName: "Game", method: FormMethod.Get, routeValues:
+        new { id = Model.GameId }))
+        {
+            <button class="btn btn-outline-primary col-lg-1 mb-3" type="submit">Update</button>
+        }
+    using (Html.BeginForm(actionName: "Delete", controllerName: "Game", method: FormMethod.Post, routeValues:
+    new { id = Model.GameId }))
+    {
+        @Html.HttpMethodOverride(HttpVerbs.Delete)
+        <button class="btn btn-outline-primary col-lg-1 mb-3" type="submit">Delete</button>
+    }
+    }
+</div>
+<br />
